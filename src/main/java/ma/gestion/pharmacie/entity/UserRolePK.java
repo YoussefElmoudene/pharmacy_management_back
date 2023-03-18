@@ -15,6 +15,6 @@ import java.io.Serializable;
 @Setter
 public class UserRolePK implements Serializable {
 
-    private  Long user;
+    private Long user;
     private Long role;
 }

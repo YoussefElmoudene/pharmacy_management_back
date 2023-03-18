@@ -22,6 +22,4 @@ public class Userrole {
     @ManyToOne
     @JoinColumn(name = "role", insertable = false, nullable = false, updatable = false)
     private Role role;
-
-
 }
