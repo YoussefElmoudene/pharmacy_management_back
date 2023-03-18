@@ -1,12 +1,11 @@
 package ma.gestion.pharmacie.entity;
 
-import javax.persistence.*;
-
 import lombok.Data;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import javax.persistence.*;
 import java.io.Serializable;
 
 @Entity
@@ -14,10 +13,9 @@ import java.io.Serializable;
 @NoArgsConstructor
 @Getter
 @Setter
-public class Pharmacie  {
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long id;
-	private String name;
-
+public class Grade  {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+    private String type;
 }

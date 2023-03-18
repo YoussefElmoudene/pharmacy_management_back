@@ -1,23 +1,20 @@
 package ma.gestion.pharmacie.entity;
 
-import javax.persistence.*;
-
 import lombok.Data;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import javax.persistence.Embeddable;
 import java.io.Serializable;
 
-@Entity
+@Embeddable
 @Data
 @NoArgsConstructor
 @Getter
 @Setter
-public class Pharmacie  {
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long id;
-	private String name;
+public class UserRolePK implements Serializable {
 
+    private  Long user;
+    private Long role;
 }
