@@ -12,14 +12,14 @@ import javax.persistence.*;
 @NoArgsConstructor
 @Getter
 @Setter
-public class Gradepharmacie {
+public class Gardepharmacie {
 
     @EmbeddedId
     private PharmacieGardePK pharmacieGardePK;
 
     @ManyToOne
     @JoinColumn(name = "grade", insertable = false, nullable = false, updatable = false)
-    private Grade grade;
+    private Garde grade;
 
     @ManyToOne
     @JoinColumn(name = "pharmacie", insertable = false, nullable = false, updatable = false)
