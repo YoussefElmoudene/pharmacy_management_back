@@ -7,14 +7,11 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import java.util.Optional;
 
 @Repository
 public interface PharmacieRepository extends JpaRepository<Pharmacie, Long> {
 
-    @Query("select p from Pharmacie p where p.zone.ville.id =:id ")
-    List<Pharmacie> findAllPharmacieByVille(@Param("id") int id);
-
-    @Query("select p from Pharmacie p where p.zone.id =:id ")
-    List<Pharmacie> findAllPharmacieByZone(@Param("id") int id);
+    Optional<Pharmacie> findByNameAndZoneId(String name, Long id);
 
 }

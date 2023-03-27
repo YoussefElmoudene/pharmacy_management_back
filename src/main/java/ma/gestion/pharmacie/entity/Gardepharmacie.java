@@ -5,7 +5,10 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import javax.persistence.*;
+import javax.persistence.EmbeddedId;
+import javax.persistence.Entity;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 
 @Entity
 @Data
@@ -24,6 +27,5 @@ public class Gardepharmacie {
     @ManyToOne
     @JoinColumn(name = "pharmacie", insertable = false, nullable = false, updatable = false)
     private Pharmacie pharmacie;
-
 
 }

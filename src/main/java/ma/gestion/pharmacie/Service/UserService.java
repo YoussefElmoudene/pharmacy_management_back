@@ -24,7 +24,8 @@ public class UserService {
     public void delete(User entity) {
         userRepository.delete(entity);
     }
-    public Optional<User> findById(Long id){
+
+    public Optional<User> findById(Long id) {
         return userRepository.findById(id);
     }
 }

@@ -13,19 +13,23 @@ import java.util.Optional;
 public class UserController {
     @Autowired
     public UserService userService;
-  @GetMapping("/")
+
+    @GetMapping("/")
     public List<User> findAll() {
         return userService.findAll();
     }
-   @PostMapping("/")
+
+    @PostMapping("/")
     public User save(@RequestBody User user) {
         return userService.save(user);
     }
-   @DeleteMapping("/user/user")
+
+    @DeleteMapping("/user/user")
     public void delete(@RequestBody User user) {
         userService.delete(user);
     }
-   @GetMapping("/id/{id}")
+
+    @GetMapping("/id/{id}")
     public Optional<User> findById(@PathVariable Long id) {
         return userService.findById(id);
     }

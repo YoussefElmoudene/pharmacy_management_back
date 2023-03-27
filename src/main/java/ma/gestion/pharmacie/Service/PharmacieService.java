@@ -3,7 +3,6 @@ package ma.gestion.pharmacie.Service;
 import ma.gestion.pharmacie.Repository.PharmacieRepository;
 import ma.gestion.pharmacie.entity.Pharmacie;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -15,33 +14,29 @@ public class PharmacieService {
     @Autowired
     private PharmacieRepository pharmacieRepository;
 
-    public List<Pharmacie> findAllPharmacie(){
+    public List<Pharmacie> findAllPharmacie() {
 
         return pharmacieRepository.findAll();
     }
-    public Optional<Pharmacie> findPharmacieById(Long id){
 
-        return pharmacieRepository.findById(id);
+    public Pharmacie findByNameAndZoneId(String name, Long id) throws Exception {
+        Optional<Pharmacie> pharmacie = pharmacieRepository.findByNameAndZoneId(name, id);
+        if (pharmacie.isPresent()) return pharmacie.get();
+        else throw new Exception("Pharmacie not found.");
     }
 
-    public void  deletePharmacie(Long id){
+    public Pharmacie findPharmacieById(Long id) throws Exception {
+        Optional<Pharmacie> pharmacie = pharmacieRepository.findById(id);
+        if (pharmacie.isPresent()) return pharmacie.get();
+        else throw new Exception("Pharmacie not found.");
+    }
+
+    public void deletePharmacie(Long id) {
         pharmacieRepository.deleteById(id);
     }
 
-    public Pharmacie save(Pharmacie p){
-     if(p.getZone().getId()==null){
-         return null;
-     }else
+    public Pharmacie save(Pharmacie p) {
         return pharmacieRepository.save(p);
     }
 
-    @Query("select p from Pharmacie p where p.zone.ville.id =:id ")
-    public List<Pharmacie> findAllPharmacieByVille(int id) {
-        return pharmacieRepository.findAllPharmacieByVille(id);
-    }
-
-    @Query("select p from Pharmacie p where p.zone.id =:id ")
-    public List<Pharmacie> findAllPharmacieByZone(int id) {
-        return pharmacieRepository.findAllPharmacieByZone(id);
-    }
 }

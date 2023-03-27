@@ -13,19 +13,23 @@ import java.util.Optional;
 public class GardeController {
     @Autowired
     public GardeService gardeService;
-   @PostMapping("/")
+
+    @PostMapping("/")
     public Garde save(@RequestBody Garde garde) {
         return gardeService.save(garde);
     }
-   @DeleteMapping("/")
+
+    @DeleteMapping("/")
     public void delete(@RequestBody Garde garde) {
         gardeService.delete(garde);
     }
-  @GetMapping("/id/{id}")
+
+    @GetMapping("/id/{id}")
     public Optional<Garde> findByid(@PathVariable long id) {
         return gardeService.findByid(id);
     }
- @GetMapping("/}")
+
+    @GetMapping("/")
     public List<Garde> findAll() {
         return gardeService.findAll();
     }

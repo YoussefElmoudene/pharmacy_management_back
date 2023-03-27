@@ -12,13 +12,15 @@ public class RoleService {
     @Autowired
     public RoleRepository roleRepository;
 
-    public Optional<Role> FindByid(Long id){
+    public Optional<Role> FindByid(Long id) {
         return roleRepository.findById(id);
     }
-    public Role save(Role role){
+
+    public Role save(Role role) {
         return roleRepository.save(role);
     }
-    public Role findAll(){
+
+    public Role findAll() {
         return (Role) roleRepository.findAll();
     }
 }

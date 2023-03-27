@@ -3,10 +3,11 @@ package ma.gestion.pharmacie.Service;
 import ma.gestion.pharmacie.Repository.VilleRepository;
 import ma.gestion.pharmacie.entity.Pharmacie;
 import ma.gestion.pharmacie.entity.Ville;
+import ma.gestion.pharmacie.entity.Zone;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Service;
 
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -14,19 +15,25 @@ import java.util.Optional;
 public class VilleService {
     @Autowired
     public VilleRepository villeRepository;
-
-    @Query("select v.nom ,(select count(p) from Pharmacie p where p.zone.ville.id=v.id ) from Ville v group by v.nom")
-    public List<Object> findNbrPharmacieVille() {
-        return villeRepository.findNbrPharmacieVille();
-    }
-
-    @Query("select v.nom ,(select count(pg) from Gardepharmacie pg where pg.pharmacie.zone.ville.id=v.id and CURRENT_DATE BETWEEN pg.PharmacieGardePK.dateDebut and pg.PharmacieGardePK.dateFin) from Ville v group by v.nom")
-    public List<Object> findNbrPharmacieGardeVille() {
-        return villeRepository.findNbrPharmacieGardeVille();
-    }
+    @Autowired
+    private ZoneService zoneService;
+    @Autowired
+    private GardePharmacieService gardePharmacieService;
 
     public Ville save(Ville ville) {
         return villeRepository.save(ville);
+    }
+
+    public List<Ville> findAll() {
+        return villeRepository.findAll();
+    }
+
+    public Ville findByNom(String nom) throws Exception {
+        Ville v = villeRepository.findByNom(nom);
+        if (v == null) {
+            throw new Exception("Ville not found.");
+        }
+        return v;
     }
 
     public Optional<Ville> findById(Long aLong) {
@@ -36,4 +43,25 @@ public class VilleService {
     public void delete(Ville ville) {
         villeRepository.delete(ville);
     }
+
+    public List<Pharmacie> findPharmacieByNomVilleAndZone(String nomVille, String nomZone) throws Exception {
+        Ville ville = findByNom(nomVille);
+        if (ville.getZones().stream().anyMatch(zone -> zone.getNom().equalsIgnoreCase(nomZone))) {
+            return ville.getZones().stream().filter(zone -> zone.getNom().equalsIgnoreCase(nomZone)).findAny().get().getPharmacies();
+        } else {
+            throw new Exception("Pharmacies not found");
+        }
+    }
+
+    public List<Zone> findZonesByNomVille(String nom) throws Exception {
+        Ville ville = findByNom(nom);
+        return ville.getZones();
+    }
+
+    public List<Pharmacie> findPharmaciesDisponibles(String nomVille, String nomZone, Date dateDonner) throws Exception {
+        Ville ville = findByNom(nomVille);
+        Zone zone = zoneService.findByNomAndVilleId(nomZone, ville.getId());
+        return gardePharmacieService.findDisponiblePharmacie(zone.getId(), dateDonner);
+    }
+
 }

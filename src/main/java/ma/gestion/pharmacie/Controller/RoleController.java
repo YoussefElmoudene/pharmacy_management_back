@@ -12,15 +12,18 @@ import java.util.Optional;
 public class RoleController {
     @Autowired
     public RoleService roleService;
+
     @GetMapping("/id/{id}")
     public Optional<Role> FindByid(@PathVariable Long id) {
         return roleService.FindByid(id);
     }
-   @PostMapping("/")
+
+    @PostMapping("/")
     public Role save(@RequestBody Role role) {
         return roleService.save(role);
     }
-   @GetMapping("/")
+
+    @GetMapping("/")
     public Role findAll() {
         return roleService.findAll();
     }

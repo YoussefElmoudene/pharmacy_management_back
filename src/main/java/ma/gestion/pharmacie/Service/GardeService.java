@@ -13,7 +13,7 @@ public class GardeService {
     @Autowired
     public GardeRepository gardeRepository;
 
-    public  Garde save(Garde garde) {
+    public Garde save(Garde garde) {
         return gardeRepository.save(garde);
     }
 
@@ -21,10 +21,11 @@ public class GardeService {
         gardeRepository.delete(entity);
     }
 
-    public Optional<Garde> findByid(long id){
+    public Optional<Garde> findByid(long id) {
         return gardeRepository.findById(id);
     }
-     public List<Garde> findAll(){
+
+    public List<Garde> findAll() {
         return gardeRepository.findAll();
-     }
+    }
 }

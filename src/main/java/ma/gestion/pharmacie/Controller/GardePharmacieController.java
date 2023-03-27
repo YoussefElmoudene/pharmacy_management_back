@@ -2,28 +2,38 @@ package ma.gestion.pharmacie.Controller;
 
 import ma.gestion.pharmacie.Service.GardePharmacieService;
 import ma.gestion.pharmacie.entity.Gardepharmacie;
+import ma.gestion.pharmacie.entity.Pharmacie;
+import ma.gestion.pharmacie.entity.PharmacieGardePK;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
+import java.util.Date;
 import java.util.List;
 
 @RestController
-@RequestMapping("api/pharmaciegarde")
+@RequestMapping("api/pharmacieGarde")
 public class GardePharmacieController {
 
     @Autowired
     public GardePharmacieService pharmacieGardeService;
 
-    public List<Gardepharmacie> findAllPharmacie() {
-        return pharmacieGardeService.findAllPharmacie();
+    @GetMapping("/pharmacies/zone/{zoneId}/{date}")
+    public List<Pharmacie> findDisponiblePharmacie(@PathVariable Long zoneId, @PathVariable Date date) {
+        return pharmacieGardeService.findDisponiblePharmacie(zoneId, date);
     }
 
-//    public Gardepharmacie save(PharmacieGardePK pk) {
-//        return pharmacieGardeService.save(pk);
-//    }
+    @PostMapping("/")
+    public Gardepharmacie save(@RequestBody Gardepharmacie entity) {
+        return pharmacieGardeService.save(entity);
+    }
 
-    public void delete(Gardepharmacie pg) {
-        pharmacieGardeService.delete(pg);
+    @GetMapping("/")
+    public List<Gardepharmacie> findAll() {
+        return pharmacieGardeService.findAll();
+    }
+
+    @DeleteMapping("/delete")
+    public void deleteById(@RequestBody PharmacieGardePK pharmacieGardePK) {
+        pharmacieGardeService.deleteById(pharmacieGardePK);
     }
 }

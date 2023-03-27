@@ -1,39 +1,56 @@
 package ma.gestion.pharmacie.Controller;
 
 import ma.gestion.pharmacie.Service.VilleService;
+import ma.gestion.pharmacie.entity.Pharmacie;
 import ma.gestion.pharmacie.entity.Ville;
+import ma.gestion.pharmacie.entity.Zone;
+import ma.gestion.pharmacie.util.DateUtil;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.jpa.repository.Query;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.Optional;
 
 @RestController
-@RequestMapping("api/ville")
+@RequestMapping("api/villes")
 public class VilleController {
 
     @Autowired
     public VilleService villeService;
-   @GetMapping("/find/")
-    @Query("select v.nom ,(select count(p) from Pharmacie p where p.zone.ville.id=v.id ) from Ville v group by v.nom")
-    public List<Object> findNbrPharmacieVille() {
-        return villeService.findNbrPharmacieVille();
-    }
-  @GetMapping("/findgarde/")
-    @Query("select v.nom ,(select count(pg) from Gardepharmacie pg where pg.pharmacie.zone.ville.id=v.id and CURRENT_DATE BETWEEN pg.PharmacieGardePK.dateDebut and pg.PharmacieGardePK.dateFin) from Ville v group by v.nom")
-    public List<Object> findNbrPharmacieGardeVille() {
-        return villeService.findNbrPharmacieGardeVille();
-    }
-   @PostMapping("/")
+
+    @PostMapping("/")
     public Ville save(@RequestBody Ville ville) {
         return villeService.save(ville);
     }
-  @GetMapping("/id/{id}")
-    public Optional<Ville> findById(@PathVariable Long aLong) {
-        return villeService.findById(aLong);
+
+    @GetMapping("/")
+    public List<Ville> findAll() {
+        return villeService.findAll();
     }
-   @DeleteMapping("/")
+
+    @GetMapping("/ville/zones/{nom}")
+    public List<Zone> findZonesByNomVille(@PathVariable String nom) throws Exception {
+        return villeService.findZonesByNomVille(nom);
+    }
+
+    @GetMapping("/ville/{nomVille}/zones/zone/{nomZone}/pharmacies")
+    public List<Pharmacie> findPharmacieByNomVilleAndZone(@PathVariable String nomVille, @PathVariable String nomZone) throws Exception {
+        return villeService.findPharmacieByNomVilleAndZone(nomVille, nomZone);
+    }
+
+    @GetMapping("/ville/{nomVille}/zones/zone/{nomZone}/grade")
+    public List<Pharmacie> findPharmaciesDisponibles(@PathVariable String nomVille, @PathVariable String nomZone,
+                                                     @RequestParam(value = "periode") String dateDonner) throws Exception {
+        return villeService.findPharmaciesDisponibles(nomVille, nomZone, DateUtil.convert_string_to_date(dateDonner));
+    }
+
+
+    @GetMapping("/id/{id}")
+    public Optional<Ville> findById(@PathVariable Long id) {
+        return villeService.findById(id);
+    }
+
+    @DeleteMapping("/")
     public void delete(@RequestBody Ville ville) {
         villeService.delete(ville);
     }
