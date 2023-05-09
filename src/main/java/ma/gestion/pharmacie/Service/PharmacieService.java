@@ -2,6 +2,7 @@ package ma.gestion.pharmacie.Service;
 
 import ma.gestion.pharmacie.Repository.PharmacieRepository;
 import ma.gestion.pharmacie.entity.Pharmacie;
+import ma.gestion.pharmacie.vo.Coordinate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -39,4 +40,13 @@ public class PharmacieService {
         return pharmacieRepository.save(p);
     }
 
+    public Coordinate get_route_to_pharmacy(Long id, Coordinate coordinate_depart) {
+        try {
+            Pharmacie pharmacie = findPharmacieById(id);
+            return new Coordinate(pharmacie.getAltitude(), pharmacie.getLongitude());
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
 }

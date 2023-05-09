@@ -1,8 +1,10 @@
 package ma.gestion.pharmacie.Controller;
 
 
+import com.google.gson.Gson;
 import ma.gestion.pharmacie.Service.PharmacieService;
 import ma.gestion.pharmacie.entity.Pharmacie;
+import ma.gestion.pharmacie.vo.Coordinate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -32,6 +34,13 @@ public class PharmacieController {
     @PostMapping("/")
     public Pharmacie save(@RequestBody Pharmacie p) {
         return pharmacieService.save(p);
+    }
+
+    @GetMapping("/id/{id}/itineraire")
+    public Coordinate get_route_to_pharmacy(@PathVariable Long id, @RequestParam("depart") String coordinate_depart) {
+        Coordinate coordinate = new Gson().fromJson(coordinate_depart, Coordinate.class);
+
+        return pharmacieService.get_route_to_pharmacy(id, coordinate);
     }
 
 
