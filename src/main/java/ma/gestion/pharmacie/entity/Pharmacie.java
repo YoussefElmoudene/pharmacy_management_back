@@ -7,6 +7,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.util.List;
 
 
 @Entity
@@ -26,5 +27,8 @@ public class Pharmacie {
     @ManyToOne
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private Zone zone;
+
+    @OneToMany(mappedBy = "pharmacie", fetch = FetchType.EAGER, cascade = CascadeType.REMOVE)
+    private List<Gardepharmacie> gardepharmacies;
 
 }

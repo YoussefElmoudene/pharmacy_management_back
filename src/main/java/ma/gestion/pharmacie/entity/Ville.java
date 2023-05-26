@@ -19,6 +19,6 @@ public class Ville {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String nom;
-    @OneToMany(mappedBy = "ville", fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "ville", fetch = FetchType.EAGER, cascade = CascadeType.REMOVE)
     private List<Zone> zones;
 }

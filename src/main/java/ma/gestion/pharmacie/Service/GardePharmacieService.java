@@ -21,6 +21,7 @@ public class GardePharmacieService {
     }
 
     public Gardepharmacie save(Gardepharmacie entity) {
+        System.out.println(entity);
         return gradePharmacieRepository.save(entity);
     }
 

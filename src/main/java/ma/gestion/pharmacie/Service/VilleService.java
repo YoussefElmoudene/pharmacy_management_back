@@ -40,8 +40,8 @@ public class VilleService {
         return villeRepository.findById(aLong);
     }
 
-    public void delete(Ville ville) {
-        villeRepository.delete(ville);
+    public void delete(Long ville) {
+        villeRepository.deleteById(ville);
     }
 
     public List<Pharmacie> findPharmacieByNomVilleAndZone(String nomVille, String nomZone) throws Exception {

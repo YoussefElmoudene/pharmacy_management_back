@@ -1,6 +1,8 @@
 package ma.gestion.pharmacie.Service;
 
+import ma.gestion.pharmacie.Repository.VilleRepository;
 import ma.gestion.pharmacie.Repository.ZoneRepository;
+import ma.gestion.pharmacie.entity.Ville;
 import ma.gestion.pharmacie.entity.Zone;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -13,6 +15,8 @@ public class ZoneService {
 
     @Autowired
     public ZoneRepository zoneRepository;
+    @Autowired
+    public VilleRepository villeRepository;
 
     public Zone findByNomAndVilleId(String nom, Long id) throws Exception {
         if (zoneRepository.findByNomAndVilleId(nom, id).isPresent()) {
@@ -35,6 +39,13 @@ public class ZoneService {
     }
 
     public Zone save(Zone zone) {
+        try {
+            Ville ville = villeRepository.findByNom(zone.getVille().getNom());
+            zone.setVille(ville);
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+
         return zoneRepository.save(zone);
     }
 

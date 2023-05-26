@@ -28,4 +28,12 @@ public class Gardepharmacie {
     @JoinColumn(name = "pharmacie", insertable = false, nullable = false, updatable = false)
     private Pharmacie pharmacie;
 
+    @Override
+    public String toString() {
+        return "Gardepharmacie{" +
+                "pharmacieGardePK=" + pharmacieGardePK +
+                ", grade=" + grade +
+                ", pharmacie=" + pharmacie +
+                '}';
+    }
 }

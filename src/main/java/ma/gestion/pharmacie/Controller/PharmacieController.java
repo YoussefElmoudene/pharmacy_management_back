@@ -32,8 +32,8 @@ public class PharmacieController {
     }
 
     @PostMapping("/")
-    public Pharmacie save(@RequestBody Pharmacie p) {
-        return pharmacieService.save(p);
+    public Pharmacie save(@RequestBody Pharmacie pharmacie) {
+        return pharmacieService.save(pharmacie);
     }
 
     @GetMapping("/id/{id}/itineraire")

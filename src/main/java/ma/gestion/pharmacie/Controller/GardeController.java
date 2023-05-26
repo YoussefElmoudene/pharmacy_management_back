@@ -19,9 +19,10 @@ public class GardeController {
         return gardeService.save(garde);
     }
 
-    @DeleteMapping("/")
-    public void delete(@RequestBody Garde garde) {
-        gardeService.delete(garde);
+
+    @DeleteMapping("/id/{id}")
+    public void deleteById(@PathVariable Long id) {
+        gardeService.deleteById(id);
     }
 
     @GetMapping("/id/{id}")

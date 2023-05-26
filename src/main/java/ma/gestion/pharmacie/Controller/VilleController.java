@@ -50,8 +50,8 @@ public class VilleController {
         return villeService.findById(id);
     }
 
-    @DeleteMapping("/")
-    public void delete(@RequestBody Ville ville) {
-        villeService.delete(ville);
+    @DeleteMapping("/id/{id}")
+    public void delete(@PathVariable Long id) {
+        villeService.delete(id);
     }
 }

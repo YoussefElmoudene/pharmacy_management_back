@@ -17,8 +17,8 @@ public class GardeService {
         return gardeRepository.save(garde);
     }
 
-    public void delete(Garde entity) {
-        gardeRepository.delete(entity);
+    public void deleteById(Long aLong) {
+        gardeRepository.deleteById(aLong);
     }
 
     public Optional<Garde> findByid(long id) {

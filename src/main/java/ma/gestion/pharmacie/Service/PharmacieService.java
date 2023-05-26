@@ -1,7 +1,9 @@
 package ma.gestion.pharmacie.Service;
 
 import ma.gestion.pharmacie.Repository.PharmacieRepository;
+import ma.gestion.pharmacie.Repository.ZoneRepository;
 import ma.gestion.pharmacie.entity.Pharmacie;
+import ma.gestion.pharmacie.entity.Zone;
 import ma.gestion.pharmacie.vo.Coordinate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -14,6 +16,8 @@ public class PharmacieService {
 
     @Autowired
     private PharmacieRepository pharmacieRepository;
+    @Autowired
+    private ZoneRepository zoneRepository;
 
     public List<Pharmacie> findAllPharmacie() {
 
@@ -37,6 +41,8 @@ public class PharmacieService {
     }
 
     public Pharmacie save(Pharmacie p) {
+        Zone zone = zoneRepository.findById(p.getZone().getId()).get();
+        p.setZone(zone);
         return pharmacieRepository.save(p);
     }
 

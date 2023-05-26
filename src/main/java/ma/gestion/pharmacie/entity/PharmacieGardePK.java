@@ -25,4 +25,16 @@ public class PharmacieGardePK implements Serializable {
     private Date datedebut;
     @Temporal(TemporalType.DATE)
     private Date datefin;
+
+    @Override
+    public String toString() {
+        return "PharmacieGardePK{" + "pharmacie=" + pharmacie + ", grade=" + grade + ", datedebut=" + datedebut + ", datefin=" + datefin + '}';
+    }
+
+    public PharmacieGardePK(Long pharmacie, Long grade, Date datedebut, Date datefin) {
+        this.pharmacie = pharmacie;
+        this.grade = grade;
+        this.datedebut = datedebut;
+        this.datefin = datefin;
+    }
 }
