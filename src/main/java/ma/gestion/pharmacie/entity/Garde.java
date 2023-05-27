@@ -1,5 +1,6 @@
 package ma.gestion.pharmacie.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -20,5 +21,6 @@ public class Garde {
     private String type;
 
     @OneToMany(mappedBy = "grade", fetch = FetchType.EAGER, cascade = CascadeType.REMOVE)
+    @JsonIgnore
     private List<Gardepharmacie> gardepharmacies;
 }

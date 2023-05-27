@@ -23,4 +23,8 @@ public class RoleService {
     public Role findAll() {
         return (Role) roleRepository.findAll();
     }
+
+    public Role findByNom(String nom) {
+        return roleRepository.findByNom(nom);
+    }
 }

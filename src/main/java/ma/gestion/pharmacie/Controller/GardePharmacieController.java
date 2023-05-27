@@ -7,6 +7,9 @@ import ma.gestion.pharmacie.entity.PharmacieGardePK;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
@@ -18,8 +21,16 @@ public class GardePharmacieController {
     public GardePharmacieService pharmacieGardeService;
 
     @GetMapping("/pharmacies/zone/{zoneId}/{date}")
-    public List<Pharmacie> findDisponiblePharmacie(@PathVariable Long zoneId, @PathVariable Date date) {
-        return pharmacieGardeService.findDisponiblePharmacie(zoneId, date);
+    public List<Pharmacie> findDisponiblePharmacie(@PathVariable Long zoneId, @PathVariable String date) { //'2023-05-27'
+        String pattern = "yyyy-MM-dd";
+        DateFormat dateFormat = new SimpleDateFormat(pattern);
+        Date mydate = null;
+        try {
+            mydate = dateFormat.parse(date);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        return pharmacieGardeService.findDisponiblePharmacie(zoneId, mydate);
     }
 
     @PostMapping("/")
