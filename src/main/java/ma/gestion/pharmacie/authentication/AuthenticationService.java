@@ -26,12 +26,15 @@ public class AuthenticationService {
 
     public ResponseEntity<?> signIn(UserVo user) throws Exception {
         try {
+            System.out.println("user = " + user);
             authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(user.email, user.password));
         } catch (BadCredentialsException e) {
             System.out.println(e.getMessage());
             throw new UserNotFoundException(e.getMessage());
         }
+        System.out.println("user.email = " + user.email);
         User loadUserByUsername = loadUserByUsername(user.email);
+        System.out.println("loadUserByUsername.getUsername() = " + loadUserByUsername.getUsername());
         MultiValueMap<String, String> jwtHeader = getJwtHeader(loadUserByUsername);
         return new ResponseEntity<>(loadUserByUsername, jwtHeader, OK);
     }
