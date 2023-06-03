@@ -17,7 +17,9 @@ public class CorsConfig {
                         .allowedMethods("GET", "POST", "PUT", "DELETE")
                         .allowedHeaders("*")
                         .allowedOrigins(
-                                "http://localhost:3000");
+                                "http://localhost:3000",
+                                "https://647b67a5af2e9e1bc66f1b80--transcendent-pika-4e4d20.netlify.app/"
+                        );
             }
         };
     }
