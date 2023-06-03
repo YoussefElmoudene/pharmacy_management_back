@@ -8,6 +8,7 @@ import ma.gestion.pharmacie.entity.User;
 import ma.gestion.pharmacie.exception.RequiredParameterException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.Arrays;
@@ -18,7 +19,8 @@ import static ma.gestion.pharmacie.security.filter.RoleConstant.ROLE_ADMIN;
 @Service
 public class RegistrationService {
 
-    private BCryptPasswordEncoder bCryptPasswordEncoder;
+    @Autowired
+    private PasswordEncoder passwordEncoder;
 
     @Autowired
     private UserService userService;
@@ -39,7 +41,7 @@ public class RegistrationService {
         }
 
         // TODO: encrypt the password
-        String encodedPassword = bCryptPasswordEncoder.encode(userRequest.getPassword());
+        String encodedPassword = passwordEncoder.encode(userRequest.getPassword());
 
         // TODO: set the old password with the encoded one
         userRequest.setPassword(encodedPassword);
