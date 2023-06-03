@@ -55,8 +55,8 @@ public class AuthenticationService {
 
     public User loadUserByUsername(String username) throws UsernameNotFoundException {
         User user = userDao.findByEmail(username);
-        if (user != null) {
-            throw new UsernameNotFoundException("not found");
+        if (user == null) {
+            throw new UsernameNotFoundException("user not found");
         } else {
             return user;
         }
