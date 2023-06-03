@@ -18,6 +18,8 @@ public class CorsConfig {
                         .allowedHeaders("*")
                         .allowedOrigins(
                                 "http://localhost:3000",
+                                "https://elmoudene-pharmacy.netlify.app",
+                                "https://elmoudene-pharmacy.netlify.app/**",
                                 "https://647b67a5af2e9e1bc66f1b80--transcendent-pika-4e4d20.netlify.app/"
                         );
             }
