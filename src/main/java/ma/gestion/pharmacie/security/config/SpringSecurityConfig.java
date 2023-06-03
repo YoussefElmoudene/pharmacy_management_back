@@ -25,12 +25,10 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
     private UserService userService;
     @Autowired
     private JwtAutorisationFilter jwtAutorisationFilter;
-    @Autowired
-    private PasswordEncoderConfig passwordEncoderConfig;
 
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-        auth.userDetailsService(userService).passwordEncoder(this.passwordEncoderConfig.passwordEncoder());
+        auth.userDetailsService(userService).passwordEncoder(this.passwordEncoder());
     }
 
     @Override

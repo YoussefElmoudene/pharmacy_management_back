@@ -7,7 +7,6 @@ import ma.gestion.pharmacie.entity.Role;
 import ma.gestion.pharmacie.entity.User;
 import ma.gestion.pharmacie.exception.RequiredParameterException;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -21,7 +20,6 @@ public class RegistrationService {
 
     @Autowired
     private PasswordEncoder passwordEncoder;
-
     @Autowired
     private UserService userService;
     @Autowired

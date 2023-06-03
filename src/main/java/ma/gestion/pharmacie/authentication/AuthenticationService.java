@@ -2,7 +2,6 @@ package ma.gestion.pharmacie.authentication;
 
 import lombok.AllArgsConstructor;
 import ma.gestion.pharmacie.Repository.UserRepository;
-import ma.gestion.pharmacie.Service.RoleService;
 import ma.gestion.pharmacie.entity.User;
 import ma.gestion.pharmacie.exception.UserNotFoundException;
 import ma.gestion.pharmacie.security.config.JwtUtil;
@@ -12,7 +11,6 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
@@ -65,10 +63,6 @@ public class AuthenticationService {
 
     @Autowired
     private UserRepository userDao;
-    @Autowired
-    private RoleService roleService;
-    @Autowired
-    private PasswordEncoder passwordEncoder;
     @Autowired
     private AuthenticationManager authenticationManager;
     @Autowired
